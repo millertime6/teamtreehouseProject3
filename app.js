@@ -85,7 +85,6 @@ $('.activities').change (function(event){
 
   
   if (activityTime == currentActivityTime && parentText != currentClick) {
-    let checkboxes = conflictingActivity; 
     $(this).prop('disabled', true);
   }
 
