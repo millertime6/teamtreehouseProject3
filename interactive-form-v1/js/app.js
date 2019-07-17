@@ -1,5 +1,19 @@
+// On page load, the focus will be on the first input on the page. It will also hide the Select Theme 
+// option in the design section, as well as the color choices until the user selects a T-Shirt. 
+
+var newOption = new Option('Select a T-Shirt Design First','new-option', true); 
 window.onload = () => {
     $("#name").focus();
+    selectTheme.hide(); 
+    $('#color').append(newOption); 
+    
+    $('#color').find("option:contains('Cornflower Blue')").hide(); 
+    $('#color').find("option:contains('Dark Slate Grey')").hide(); 
+    $('#color').find("option:contains('Gold')").hide(); 
+    $('#color').find("option:contains('Tomato')").hide(); 
+    $('#color').find("option:contains('Steel Blue')").hide(); 
+    $('#color').find("option:contains('Dim Grey')").hide(); 
+
   };
 
 // Below is the function to dynamically show the "other" field when the "other" is selected in the job role dropdown box.
@@ -17,9 +31,9 @@ $("#other-title").hide();
 // filtering the t-shirt color selections based on the design chosen
 
 const selectTheme = $("#design").find("option:contains('Select Theme')");
-selectTheme.hide(); 
 
 $('#design').change (function(){
+
   if ($(this).val()== "js puns") {
     $('#color').find("option:contains('Cornflower Blue')").show(); 
     $('#color').find("option:contains('Dark Slate Grey')").show(); 
@@ -28,6 +42,8 @@ $('#design').change (function(){
     $('#color').find("option:contains('Tomato')").hide(); 
     $('#color').find("option:contains('Steel Blue')").hide(); 
     $('#color').find("option:contains('Dim Grey')").hide(); 
+    selectTheme.hide(); 
+    newOption.style.display="none";
   }
   else if ($(this).val()== "heart js") {
     $('#color').find("option:contains('Tomato')").show(); 
@@ -37,12 +53,14 @@ $('#design').change (function(){
     $('#color').find("option:contains('Cornflower Blue')").hide(); 
     $('#color').find("option:contains('Dark Slate Grey')").hide(); 
     $('#color').find("option:contains('Gold')").hide(); 
+    selectTheme.hide();
+    newOption.style.display="none"; 
+    
 }
 
 });  
 
 // The activity section that restricts the user from booking multiple activities at the same time
-// I left the logs in as comments so I can go back and edit if needed
 // The section also adds together the totals of the costs of the events
 
 var totalCostElement = document.createElement('p'); 
@@ -51,13 +69,9 @@ $('.activities').append(totalCostElement);
 
 $('.activities').change(function(event){
   let inputClick = $(event.target); 
-  console.log(inputClick); 
   let parentText = $(inputClick).parent().text(); 
-  console.log(parentText); 
   let dollarSignIndex = parentText.indexOf('$'); 
-  console.log(dollarSignIndex); 
   let priceOne = parseInt(parentText.slice(dollarSignIndex+1)); 
-  console.log(priceOne);
   
   if (inputClick.prop('checked')) {
     totalActivityCost += priceOne; 
@@ -66,13 +80,9 @@ $('.activities').change(function(event){
     totalActivityCost-=priceOne;
   }
   totalCostElement.textContent = 'Total: $'+totalActivityCost; 
-  console.log(totalActivityCost); 
   let emDash = parseInt(parentText.indexOf('—')+2); 
-  console.log(emDash); 
   let comma = parseInt(parentText.indexOf(',')); 
-  console.log(comma); 
   let activityTime = parentText.slice(emDash, comma); 
-  console.log(activityTime);
 
   let checkboxes = $(":checkbox"); 
   checkboxes.each(function(i) {
@@ -80,8 +90,6 @@ $('.activities').change(function(event){
     let currentClickDash = parseInt(currentClick.indexOf('—')+2);
     let currentClickComma = parseInt(currentClick.indexOf(',')); 
     let currentActivityTime = currentClick.slice(currentClickDash, currentClickComma); 
-    console.log(currentActivityTime);
-    console.log(currentClick); 
 
     // grabbing inputs as variables to set conditionals based on clicks
     var jsFrameworks = $("input[name='js-frameworks']"); 
@@ -155,7 +163,6 @@ $('.activities').change(function(event){
    if ($('#name').val().length===0) {
     $('#name').css('border-color', 'red'); 
     event.preventDefault(); 
-    console.log('call the police'); 
   }
    else {
       $('#name').css('border-color',""); 
@@ -170,7 +177,6 @@ $('.activities').change(function(event){
     if (testResult == false) {
       $('#mail').css('border-color', 'red'); 
     event.preventDefault(); 
-    console.log('just for the test'); 
     }
 
     else {
@@ -186,11 +192,9 @@ $('.activities').change(function(event){
         errorMessage.textContent = "You need to check at least one activity."; 
         errorMessage.style.color = 'red'; 
         $('.activities').append(errorMessage);  
-        console.log('nothing has been clicked'); 
+        event.preventDefault(); 
     }
         else {
-          event.preventDefault(); 
-          console.log('checkbox is checked'); 
 
     }
   })
@@ -207,26 +211,22 @@ $('.activities').change(function(event){
 
         if (creditTest.test(ccNum)==false) {
           event.preventDefault();
-          console.log('credit number failed') 
+          $('#cc-num').css('border-color', 'red');
         }
         else {
-          console.log('credit number worked!'); 
         
         }
         if (zipTest.test(zipCode)==false) {
           event.preventDefault(); 
-          console.log('zip code is wrong'); 
+          $('#zip').css('border-color', 'red');
         }
         else {
-          console.log('zip code worked!'); 
         }
         if (cvvTest.test(cvvNum)==false) {
-          console.log('cvv number is wrong friend!'); 
+          $('#cvv').css('border-color', 'red');
         }
-          console.log('credit card was selected'); 
       }
       else {
-          console.log('credit card not selected');
         
   }
 })
