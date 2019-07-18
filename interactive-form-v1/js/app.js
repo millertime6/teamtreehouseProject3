@@ -2,17 +2,30 @@
 // option in the design section, as well as the color choices until the user selects a T-Shirt. 
 
 var newOption = new Option('Select a T-Shirt Design First','new-option', true); 
+// creating the activities section error message as a global variable
+var errorMessage = document.createElement('p'); 
+    errorMessage.textContent = "You need to check at least one activity."; 
+    errorMessage.style.color = 'red'; 
+
 window.onload = () => {
     $("#name").focus();
     selectTheme.hide(); 
     $('#color').append(newOption); 
-    
     $('#color').find("option:contains('Cornflower Blue')").hide(); 
     $('#color').find("option:contains('Dark Slate Grey')").hide(); 
     $('#color').find("option:contains('Gold')").hide(); 
     $('#color').find("option:contains('Tomato')").hide(); 
     $('#color').find("option:contains('Steel Blue')").hide(); 
     $('#color').find("option:contains('Dim Grey')").hide(); 
+    $('#credit-card').show();  
+    
+    $("#payment").val("credit card");
+    $("p:contains(PayPal)").hide(); 
+    $( "p:contains(Bitcoin)").hide(); 
+
+    // appending and hiding the default error message for the activities section.
+    $('.activities').append(errorMessage);  
+    errorMessage.style.display = "none"; 
 
   };
 
@@ -29,12 +42,11 @@ $("#other-title").hide();
       });
 
 // filtering the t-shirt color selections based on the design chosen
-
 const selectTheme = $("#design").find("option:contains('Select Theme')");
 
 $('#design').change (function(){
-
-  if ($(this).val()== "js puns") {
+  
+  if ($(this).val()=='js puns') {
     $('#color').find("option:contains('Cornflower Blue')").show(); 
     $('#color').find("option:contains('Dark Slate Grey')").show(); 
     $('#color').find("option:contains('Gold')").show(); 
@@ -43,9 +55,9 @@ $('#design').change (function(){
     $('#color').find("option:contains('Steel Blue')").hide(); 
     $('#color').find("option:contains('Dim Grey')").hide(); 
     selectTheme.hide(); 
-    newOption.style.display="none";
+    newOption.style.display= "none";
   }
-  else if ($(this).val()== "heart js") {
+  else if ($(this).val()=='heart js') {
     $('#color').find("option:contains('Tomato')").show(); 
     $('#color').find("option:contains('Steel Blue')").show(); 
     $('#color').find("option:contains('Dim Grey')").show(); 
@@ -54,7 +66,7 @@ $('#design').change (function(){
     $('#color').find("option:contains('Dark Slate Grey')").hide(); 
     $('#color').find("option:contains('Gold')").hide(); 
     selectTheme.hide();
-    newOption.style.display="none"; 
+    newOption.style.display = "none"; 
     
 }
 
@@ -188,10 +200,7 @@ $('.activities').change(function(event){
 // this function confirms that at least one activity (checkbox) was checked before allowing the form to be submitted
   $(':submit').click(function(){
         if ($("input:checkbox:checked").length==0) {
-        let errorMessage = document.createElement('p'); 
-        errorMessage.textContent = "You need to check at least one activity."; 
-        errorMessage.style.color = 'red'; 
-        $('.activities').append(errorMessage);  
+        errorMessage.style.display=""; 
         event.preventDefault(); 
     }
         else {
@@ -224,6 +233,7 @@ $('.activities').change(function(event){
         }
         if (cvvTest.test(cvvNum)==false) {
           $('#cvv').css('border-color', 'red');
+          event.preventDefault();
         }
       }
       else {
