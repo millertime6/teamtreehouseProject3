@@ -2,31 +2,33 @@
 // option in the design section, as well as the color choices until the user selects a T-Shirt. 
 
 var newOption = new Option('Select a T-Shirt Design First','new-option', true); 
+
 // creating the activities section error message as a global variable
 var errorMessage = document.createElement('p'); 
     errorMessage.textContent = "You need to check at least one activity."; 
     errorMessage.style.color = 'red'; 
-// t-shirt colors selected as variables
-var cornflowerBlue = $('#color').find("option:contains('Cornflower Blue')"); 
+
+// creating variables out of the t-shirt color selections 
+var cornflowerBlue= $('#color').find("option:contains('Cornflower Blue')"); 
 var darkSlateGrey = $('#color').find("option:contains('Dark Slate Grey')"); 
 var gold = $('#color').find("option:contains('Gold')"); 
 var tomato = $('#color').find("option:contains('Tomato')"); 
 var steelBlue = $('#color').find("option:contains('Steel Blue')"); 
 var dimGrey = $('#color').find("option:contains('Dim Grey')"); 
 
+// setting some default characteristics
 window.onload = () => {
     $("#name").focus();
     selectTheme.hide(); 
-    $('#color').append(newOption).show(); 
-
+    $('#color').append(newOption); 
     cornflowerBlue.hide(); 
     darkSlateGrey.hide(); 
-    gold.hide();
-    tomato.hide();
+    gold.hide(); 
+    tomato.hide(); 
     steelBlue.hide(); 
     dimGrey.hide(); 
 
-    // default states for the credit card section
+    // setting default payment states
     $('#credit-card').show();  
     $("#payment").val("credit card");
     $("p:contains(PayPal)").hide(); 
@@ -53,31 +55,32 @@ $("#other-title").hide();
 // filtering the t-shirt color selections based on the design chosen
 const selectTheme = $("#design").find("option:contains('Select Theme')");
 
-
-    
-$('#design').change (function(){
-  if ($("#design option:selected").val() === "js puns") {
+$('#design').change(function(){
+  
+  if ($(this).val()=='js puns') {
+    $('#color').val('cornflowerblue'); 
+    cornflowerBlue.show(); 
     darkSlateGrey.show(); 
     gold.show(); 
-    cornflowerBlue.show(); 
+
     tomato.hide(); 
     steelBlue.hide(); 
     dimGrey.hide(); 
     selectTheme.hide(); 
     newOption.style.display= "none";
   }
-
-  $('#design').change (function(){
-   if ($("#design option:selected").val() === "heart js") {
+   else if ($(this).val()=='heart js') {
+    $('#color').val('tomato'); 
     tomato.show(); 
     steelBlue.show(); 
     dimGrey.show(); 
+
+    cornflowerBlue.hide(); 
     darkSlateGrey.hide(); 
     gold.hide(); 
-    cornflowerBlue.hide(); 
     selectTheme.hide();
     newOption.style.display = "none"; 
-  }
+}
 });  
 
 // The activity section that restricts the user from booking multiple activities at the same time
@@ -248,4 +251,4 @@ $('.activities').change(function(event){
         
   }
 })
-})
+  
