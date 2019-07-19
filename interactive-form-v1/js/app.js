@@ -6,19 +6,28 @@ var newOption = new Option('Select a T-Shirt Design First','new-option', true);
 var errorMessage = document.createElement('p'); 
     errorMessage.textContent = "You need to check at least one activity."; 
     errorMessage.style.color = 'red'; 
+// t-shirt colors selected as variables
+var cornflowerBlue = $('#color').find("option:contains('Cornflower Blue')"); 
+var darkSlateGrey = $('#color').find("option:contains('Dark Slate Grey')"); 
+var gold = $('#color').find("option:contains('Gold')"); 
+var tomato = $('#color').find("option:contains('Tomato')"); 
+var steelBlue = $('#color').find("option:contains('Steel Blue')"); 
+var dimGrey = $('#color').find("option:contains('Dim Grey')"); 
 
 window.onload = () => {
     $("#name").focus();
     selectTheme.hide(); 
-    $('#color').append(newOption); 
-    $('#color').find("option:contains('Cornflower Blue')").hide(); 
-    $('#color').find("option:contains('Dark Slate Grey')").hide(); 
-    $('#color').find("option:contains('Gold')").hide(); 
-    $('#color').find("option:contains('Tomato')").hide(); 
-    $('#color').find("option:contains('Steel Blue')").hide(); 
-    $('#color').find("option:contains('Dim Grey')").hide(); 
+    $('#color').append(newOption).show(); 
+
+    cornflowerBlue.hide(); 
+    darkSlateGrey.hide(); 
+    gold.hide();
+    tomato.hide();
+    steelBlue.hide(); 
+    dimGrey.hide(); 
+
+    // default states for the credit card section
     $('#credit-card').show();  
-    
     $("#payment").val("credit card");
     $("p:contains(PayPal)").hide(); 
     $( "p:contains(Bitcoin)").hide(); 
@@ -44,32 +53,31 @@ $("#other-title").hide();
 // filtering the t-shirt color selections based on the design chosen
 const selectTheme = $("#design").find("option:contains('Select Theme')");
 
-$('#design').change (function(){
-  
-  if ($(this).val()=='js puns') {
-    $('#color').find("option:contains('Cornflower Blue')").show(); 
-    $('#color').find("option:contains('Dark Slate Grey')").show(); 
-    $('#color').find("option:contains('Gold')").show(); 
+
     
-    $('#color').find("option:contains('Tomato')").hide(); 
-    $('#color').find("option:contains('Steel Blue')").hide(); 
-    $('#color').find("option:contains('Dim Grey')").hide(); 
+$('#design').change (function(){
+  if ($("#design option:selected").val() === "js puns") {
+    darkSlateGrey.show(); 
+    gold.show(); 
+    cornflowerBlue.show(); 
+    tomato.hide(); 
+    steelBlue.hide(); 
+    dimGrey.hide(); 
     selectTheme.hide(); 
     newOption.style.display= "none";
   }
-  else if ($(this).val()=='heart js') {
-    $('#color').find("option:contains('Tomato')").show(); 
-    $('#color').find("option:contains('Steel Blue')").show(); 
-    $('#color').find("option:contains('Dim Grey')").show(); 
-    
-    $('#color').find("option:contains('Cornflower Blue')").hide(); 
-    $('#color').find("option:contains('Dark Slate Grey')").hide(); 
-    $('#color').find("option:contains('Gold')").hide(); 
+
+  $('#design').change (function(){
+   if ($("#design option:selected").val() === "heart js") {
+    tomato.show(); 
+    steelBlue.show(); 
+    dimGrey.show(); 
+    darkSlateGrey.hide(); 
+    gold.hide(); 
+    cornflowerBlue.hide(); 
     selectTheme.hide();
     newOption.style.display = "none"; 
-    
-}
-
+  }
 });  
 
 // The activity section that restricts the user from booking multiple activities at the same time
@@ -240,4 +248,4 @@ $('.activities').change(function(event){
         
   }
 })
-  
+})
