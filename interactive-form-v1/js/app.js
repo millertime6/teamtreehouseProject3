@@ -1,7 +1,8 @@
 // On page load, the focus will be on the first input on the page. It will also hide the Select Theme 
 // option in the design section, as well as the color choices until the user selects a T-Shirt. 
 
-var newOption = new Option('Select a T-Shirt Design First','new-option', true); 
+var newOption = new Option('Please select a T-Shirt Theme','new-option', true); 
+const selectTheme = $("#design").find("option:contains('Select Theme')");
 
 // creating the activities section error message as a global variable
 var errorMessage = document.createElement('p'); 
@@ -20,13 +21,13 @@ var dimGrey = $('#color').find("option:contains('Dim Grey')");
 window.onload = () => {
     $("#name").focus();
     selectTheme.hide(); 
-    $('#color').append(newOption); 
     cornflowerBlue.hide(); 
     darkSlateGrey.hide(); 
     gold.hide(); 
     tomato.hide(); 
     steelBlue.hide(); 
     dimGrey.hide(); 
+    $('#color').hide(); 
 
     // setting default payment states
     $('#credit-card').show();  
@@ -53,11 +54,11 @@ $("#other-title").hide();
       });
 
 // filtering the t-shirt color selections based on the design chosen
-const selectTheme = $("#design").find("option:contains('Select Theme')");
 
 $('#design').change(function(){
-  
-  if ($(this).val()=='js puns') {
+
+  if ($(this).val()==='js puns') {
+    $('#color').show(); 
     $('#color').val('cornflowerblue'); 
     cornflowerBlue.show(); 
     darkSlateGrey.show(); 
@@ -67,9 +68,10 @@ $('#design').change(function(){
     steelBlue.hide(); 
     dimGrey.hide(); 
     selectTheme.hide(); 
-    newOption.style.display= "none";
+    // newOption.style.display= "none";
   }
-   else if ($(this).val()=='heart js') {
+   else if ($(this).val()==='heart js') {
+    $('#color').show(); 
     $('#color').val('tomato'); 
     tomato.show(); 
     steelBlue.show(); 
@@ -79,7 +81,7 @@ $('#design').change(function(){
     darkSlateGrey.hide(); 
     gold.hide(); 
     selectTheme.hide();
-    newOption.style.display = "none"; 
+    // newOption.style.display = "none"; 
 }
 });  
 
